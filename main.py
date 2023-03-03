@@ -38,6 +38,13 @@ with open(API_PATH, "r", encoding="utf-8") as key_file:
         if sys_content == "":
             sys_content =  "现在你是一个机器人顾问。"
         MESSAGES[0]["content"] = sys_content
+        
+        user_content = input("user content:")
+        if user_content == "":
+            user_content =  "你觉得是先有鸡还是先有蛋。"
+        tmp_content = {"role":"user","content":user_content}
+        MESSAGES.append(tmp_content)
+        
         response_role,response_result = sendingMessages(MODEL,MESSAGES)
         print("response_result:\t\t"+str(response_result))
         response_json = {"role":response_role,
@@ -60,6 +67,7 @@ with open(API_PATH, "r", encoding="utf-8") as key_file:
             #print("response:"+str(response))
             #------------------------------#
             response_role,response_result = sendingMessages(MODEL,MESSAGES)
+            
             print("response_result:\t\t"+str(response_result))
             #------------------------------#
             response_json = {"role":response_role,
@@ -68,6 +76,7 @@ with open(API_PATH, "r", encoding="utf-8") as key_file:
             MESSAGES.append(response_json)
             #------------------------------#
             content = input("user content:")
+            
         else:
             print("---------BIGBANG----------")
         js.dump(MESSAGES, logs, indent=4, ensure_ascii=False)
